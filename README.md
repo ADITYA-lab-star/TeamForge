@@ -1,2 +1,0 @@
-# TeamForge
-A project
