@@ -1,0 +1,40 @@
+/* ==========================================================================
+   Mentored Projects Scoped Styles
+   ========================================================================== */
+
+.tf-mentored-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tf-mentored-header {
+  margin-bottom: 24px;
+}
+
+.tf-mentored-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--tf-ink-900, #111827);
+  margin: 0 0 6px 0;
+}
+
+.tf-mentored-subtitle {
+  font-size: 0.92rem;
+  color: var(--tf-ink-500, #6b7280);
+  margin: 0;
+}
+
+.tf-mentored-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.tf-mentored-loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--tf-ink-500, #6b7280);
+  font-size: 0.92rem;
+  font-style: italic;
+}

@@ -1,0 +1,26 @@
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--bg, #f5f4f0);
+  color: var(--fg, #111827);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.app-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.app-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: var(--bg, #f5f4f0);
+  color: var(--fg, #111827);
+  transition: background-color 0.25s ease, color 0.25s ease;
+  scroll-behavior: smooth;
+}

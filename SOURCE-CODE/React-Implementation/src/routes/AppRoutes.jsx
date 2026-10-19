@@ -1,0 +1,122 @@
+import { Routes, Route, Navigate } from "react-router-dom";
+
+import LandingPage from "../pages/landingpage";
+import Login from "../pages/Login";
+import Signup from "../pages/Signup";
+import Layout from "../pages/layout";
+import Dashboard from "../pages/dashboard";
+import Help from "../pages/help";
+import Leaderboard from "../pages/leaderboard";
+import Notifications from "../pages/notifications";
+import Profile from "../pages/profile";
+import Settings from "../pages/settings";
+import ProjectsMarketplace from "../pages/collaborator/ProjectsMarketplace";
+import AppliedProjects from "../pages/collaborator/AppliedProjects";
+import MyWork from "../pages/collaborator/MyWork";
+import CollaboratorWorkspace from "../pages/collaborator/CollaboratorWorkspace";
+import CreateProject from "../pages/owner/CreateProject";
+import MyProjects from "../pages/owner/MyProjects";
+import MentorsDirectory from "../pages/owner/MentorsDirectory";
+import OwnedWorkspace from "../pages/owner/OwnedWorkspace";
+import OwnerDashboard from "../pages/owner/OwnerDashboard";
+import AdminLogin from "../pages/admin/AdminLogin";
+import AdminDashboard from "../pages/admin/AdminDashboard";
+import AdminLayout from "../pages/admin/AdminLayout";
+import AdminUsers from "../pages/admin/AdminUsers";
+import AdminUserDetails from "../pages/admin/AdminUserDetails";
+import AdminProjects from "../pages/admin/AdminProjects";
+import AdminProjectDetails from "../pages/admin/AdminProjectDetails";
+import SuperuserAdmins from "../pages/admin/SuperuserAdmins";
+import SuperuserConfig from "../pages/admin/SuperuserConfig";
+import MentorRevenue from "../pages/admin/MentorRevenue";
+import AuditLog from "../pages/admin/AuditLog";
+import AdminMentorApps from "../pages/admin/AdminMentorApps";
+import MentoredProjects from "../pages/mentor/MentoredProjects";
+import MentorRequests from "../pages/mentor/MentorRequests";
+import MentorProjectWorkspace from "../pages/mentor/MentorProjectWorkspace";
+import MentorApplication from "../pages/mentor/MentorApplication";
+import MyMentorProfile from "../pages/mentor/MyMentorProfile";
+import MentorEarnings from "../pages/mentor/MentorEarnings";
+import ProtectedRoute from "./ProtectedRoute";
+import AdminProtectedRoute from "./AdminProtectedRoute";
+import MentorProtectedRoute from "./MentorProtectedRoute";
+import OwnerProtectedRoute from "./OwnerProtectedRoute";
+
+const AppRoutes = () => {
+  return (
+    <Routes>
+      {/* Public pages */}
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      
+      {/* Admin Pages (Login is public, Dashboard is protected) */}
+      <Route path="/admin/login" element={<AdminLogin />} />
+      
+      <Route element={<AdminProtectedRoute />}>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="users" element={<AdminUsers />} />
+          <Route path="users/:id" element={<AdminUserDetails />} />
+          <Route path="projects" element={<AdminProjects />} />
+          <Route path="projects/:id" element={<AdminProjectDetails />} />
+          <Route path="mentor-apps" element={<AdminMentorApps />} />
+          <Route path="mentor-revenue" element={<MentorRevenue />} />
+          <Route path="audit" element={<AuditLog />} />
+          <Route path="su-admins" element={<SuperuserAdmins />} />
+          <Route path="su-config" element={<SuperuserConfig />} />
+        </Route>
+      </Route>
+      
+      {/* Protected pages */}
+      <Route element={<ProtectedRoute />}>
+        <Route element={<Layout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          {/* Collaborator Role Routes */}
+          <Route path="/projects" element={<ProjectsMarketplace />} />
+          <Route path="/applied-projects" element={<AppliedProjects />} />
+          <Route path="/my-work" element={<MyWork />} />
+          <Route path="/workspace/:projectId" element={<CollaboratorWorkspace />} />
+
+          {/* Project Owner Role Routes (Guarded for owners) */}
+          <Route element={<OwnerProtectedRoute />}>
+            <Route path="/create-project" element={<CreateProject />} />
+            <Route path="/my-projects" element={<MyProjects />} />
+            <Route path="/owner/mentors" element={<MentorsDirectory />} />
+            <Route path="/owner/workspace/:projectId" element={<OwnedWorkspace />} />
+            <Route path="/owner/dashboard" element={<OwnerDashboard />} />
+          </Route>
+
+          {/* Legacy route redirect for mentors directory */}
+          <Route path="/mentors" element={<Navigate to="/owner/mentors" replace />} />
+
+          {/* Mentor Application Route (Open for pending/new mentors) */}
+          <Route path="/mentor/apply" element={<MentorApplication />} />
+          <Route path="/mentor-application" element={<MentorApplication />} />
+
+          {/* Mentor Role Routes (Locked until admin approval) */}
+          <Route element={<MentorProtectedRoute />}>
+            <Route path="/mentor/projects" element={<MentoredProjects />} />
+            <Route path="/mentored-projects" element={<MentoredProjects />} />
+            <Route path="/mentor/requests" element={<MentorRequests />} />
+            <Route path="/mentor-requests" element={<MentorRequests />} />
+            <Route path="/mentor/earnings" element={<MentorEarnings />} />
+            <Route path="/mentor-earnings" element={<MentorEarnings />} />
+            <Route path="/mentor/profile" element={<MyMentorProfile />} />
+            <Route path="/mentor-profile" element={<MyMentorProfile />} />
+            <Route path="/mentor/workspace/:projectId" element={<MentorProjectWorkspace />} />
+          </Route>
+
+          {/* Shared / Global Routes */}
+          <Route path="/help" element={<Help />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/notifications" element={<Notifications />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
+        </Route>
+      </Route>
+    </Routes>
+  );
+};
+
+export default AppRoutes;
